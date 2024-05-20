@@ -21,6 +21,7 @@ $routes = [
         'controller'=>\controllers\CategoryController::class
     ]
 
+
 ];
 
 return $routes;

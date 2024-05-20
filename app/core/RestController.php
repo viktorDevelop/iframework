@@ -16,6 +16,7 @@ abstract class RestController{
     public function __construct()
     {
         $this->view = \core\View::getInstance();
+
     }
 
     public function setData($varibleName,$data = [])

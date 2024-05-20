@@ -1,0 +1,5 @@
+https://gist.github.com/matthewjberger/7dd7e079f282f8138a9dc3b045ebefa0
+
+https://github.com/ohmyzsh/ohmyzsh/
+
+https://github.com/kirumipat/ZSH-OHMYZSH-POWERLEVEL10K-EXA

@@ -28,6 +28,7 @@ class Router {
         if ($_SERVER['REQUEST_METHOD'] !== "GET"){
             return ;
         }
+
         if (!empty($this->url_params)){
 
             $controller_obj = new $controller();
@@ -56,11 +57,12 @@ class Router {
 
                 }
             }
-            $a[$k] = preg_replace('~:[a-z]+~','?(?P<'.$sl.'>[a-z0-9-]+)',$i);
+            $a[$k] = preg_replace('~:[a-z]+~','(?P<'.$sl.'>[a-z0-9-]+)',$i);
         }
         $preg_m =  implode('/',$a);
         $preg_m = '/'.$preg_m.'?/';
         $preg_match_validate = preg_match_all('~^'.$preg_m.'$~',$_SERVER['REQUEST_URI'],$matches);
+
         if (!$preg_match_validate){
             return false;
         }
@@ -76,6 +78,7 @@ class Router {
             }
         }
         unset($url_slug[0]);
+
         $this->url_params = $url_slug;
         return  true;
     }

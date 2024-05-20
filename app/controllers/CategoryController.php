@@ -2,6 +2,7 @@
 
 namespace controllers;
 
+use core\Database;
 use core\http\Request;
 use core\http\Response;
 use core\RestController;
@@ -10,13 +11,20 @@ class CategoryController extends RestController {
 
     function actionIndex()
     {
-         echo "SELECT * FROM Category ORDER BY id DESC ";
+        $this->setData('user',['arResult'=>['id'=>'4']]);
+        $this->setData('users',['arResult'=>['id'=>'25']]);
+
+        $this->show('blog');
     }
 
     function actionFind(Request $request)
     {
-         print_r($request->getParams());
-        echo 'CategoryController find';
+        print_r($request->getParams());
+//        $post = new Post();
+//        $post->setCategory($request->getParams('category_title'));
+//        $post->setPost($request->getParams('post'));
+
+//        echo 'CategoryController find';
     }
 
     function actionCreate(Request $request)

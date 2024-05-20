@@ -8,8 +8,6 @@ spl_autoload_register(function ($class){
 
 });
 
-//$r = new \core\Router();
-//$r->init();
 
 $router = new \core\Router();
 $router->init();
