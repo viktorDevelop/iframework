@@ -3,16 +3,35 @@ namespace controllers;
 
 use engine\core\controller\FrontController;
 use engine\core\request\Request;
+use engine\core\view\View;
 
 class PostController extends FrontController
 {
+    protected static $templateName = 'blog';
+
     public function index(Request $request)
     {
-        // TODO: Implement index() method.
-        var_dump([
-            'params'=>$request->get()
-        ]);
+//        $view = View::getInstance();
+//        $view->title = 'index home';
+//        $galery =  $view->render('blog/galery',['arResult'=>['title galery'=>'test']]);
+//        $view->posts = $view->render('blog/posts',['galery'=>$galery]);
+//       echo $view->render('blog');
+
+//        $post = new PostComponent();
+        $this->template->title = 'home index';
+//
+//        $galery = new GaleryComponent();
+//        $post->setGalery('blog.galery',$galery);
+//        $this->template->setData('blog.post',$post);
+        $this->template->show();
+//       $this->template->title = Post::getField()->title();
     }
+
+    private function template()
+    {
+
+    }
+
 
     public function show(Request $request)
     {
