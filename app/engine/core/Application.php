@@ -9,13 +9,13 @@ class Application
 	{	
     $router = new Router();
 
-//        $router->add('home','/',\controllers\PostController::class,'index');
-//        $router->add(
-//            'post',
-//            '/post/{int:id}/',
-//            \controllers\PostController::class,
-//            'show'
-//        );
+        $router->add('home','/',\controllers\PostController::class,'index');
+        $router->add(
+            'post',
+            '/post/{int:id}/',
+            \controllers\PostController::class,
+            'show'
+        );
 //        $router->add(
 //            'post',
 //            '/post/{str:postTitle}/',
