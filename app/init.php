@@ -7,7 +7,3 @@ spl_autoload_register(function ($class){
     }
 
 });
-
-
-$router = new \core\Router();
-$router->init();
