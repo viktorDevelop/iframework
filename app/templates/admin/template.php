@@ -8,6 +8,6 @@
     <title>admin</title>
 </head>
 <body>
-
+    <?$content->render()?>
 </body>
 </html>

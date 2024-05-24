@@ -2,6 +2,7 @@
 namespace engine\core\controller;
 
 use engine\core\request\Request;
+use engine\core\view\Template;
 use engine\core\view\View;
 
 abstract class FrontController
@@ -19,7 +20,7 @@ abstract class FrontController
 
     public function __construct()
     {
-        $this->template = View::getInstance(static::$templateName);
+        $this->template = new Template(static::$templateName);
     }
 
 }

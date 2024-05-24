@@ -10,8 +10,9 @@
 <body>
     <main>
         <?echo $title ?? '';?>
-        <?echo $var ?? '';?>
-        <?echo $posts ?? '';?>
+
+
+        <?  $content->render();?>
     </main>
 
 </body>

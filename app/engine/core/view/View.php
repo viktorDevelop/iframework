@@ -26,8 +26,6 @@ class View
 
     public function render($view,$viewData = [])
     {
-
-
         foreach ($this->data as $key => $value) {
 
             $$key = $value;
@@ -42,6 +40,7 @@ class View
         }
         ob_start();
         $path = $_SERVER['DOCUMENT_ROOT'].'/templates/'.$view.'/template.php';
+
         if (file_exists($path)) {
             include $path;
         }else{

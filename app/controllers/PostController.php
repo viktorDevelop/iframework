@@ -1,30 +1,21 @@
 <?php
 namespace controllers;
 
+use components\PostComponent;
 use engine\core\controller\FrontController;
 use engine\core\request\Request;
 use engine\core\view\View;
 
 class PostController extends FrontController
 {
-    protected static $templateName = 'blog';
+    protected static $templateName = 'admin';
 
     public function index(Request $request)
     {
-//        $view = View::getInstance();
-//        $view->title = 'index home';
-//        $galery =  $view->render('blog/galery',['arResult'=>['title galery'=>'test']]);
-//        $view->posts = $view->render('blog/posts',['galery'=>$galery]);
-//       echo $view->render('blog');
+        $post = new PostComponent();
 
-//        $post = new PostComponent();
-        $this->template->title = 'home index';
-//
-//        $galery = new GaleryComponent();
-//        $post->setGalery('blog.galery',$galery);
-//        $this->template->setData('blog.post',$post);
+        $this->template->setContent($post);
         $this->template->show();
-//       $this->template->title = Post::getField()->title();
     }
 
     private function template()

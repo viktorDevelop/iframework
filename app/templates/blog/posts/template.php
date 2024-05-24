@@ -1,5 +1,7 @@
 post list
 <?php
 
-echo $galery;
+var_dump($arResult);
+$component->showGalery();
+
 ?>
