@@ -1,6 +1,5 @@
 <?
-
-
+//Z2hwX3pid1V4UGoxTWFjeWVramVHaHloRkVOTUdvQnU2ejRRR1pEdQ==
 abstract class  Component
 {
     public function render($comp,$data = [])
@@ -136,7 +135,6 @@ class TemplateBlog extends TemplatePrototype
     }
 
 }
-
 
 
 $temp = new TemplateBlog('blog');
