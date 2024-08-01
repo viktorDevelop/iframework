@@ -1,147 +1,145 @@
-<?php
+<?
 
-/**
- * 
- */
-class Views   
+
+abstract class  Component
 {
-    
-    private $data = [];
-    private static $instance;
-
-    private $templateName;
-
-    private function __construct() {}
-
-    public static function getInstance()
+    public function render($comp,$data = [])
     {
-        if (!isset(self::$instance)) {
-            $cl = __CLASS__;
-            self::$instance = new $cl;
+        foreach ($data as $key => $value) {
+            $$key = $value;
         }
 
-        return self::$instance;
-    }
-
-    public function __set($k,$v)
-    {
-        $this->data[$k] = $v;
-    }
-
-
-    public function render()
-    {
-        $arg = func_get_args();
-        // print_r($arg);
-
-         foreach ($this->data as $key => $value) {
-
-            $$key = $value;
-         }
-         // include  $path = $_SERVER['DOCUMENT_ROOT'].'/templates/'.$this->templateName.'/template.php';
-
         ob_start();
+        $path = $_SERVER['DOCUMENT_ROOT'].'/templates/blog/components/'.$comp.'/template.php';
+        if (file_exists($path)) {
+            include $path;
+        }else{
+            echo "404";
+        }
 
-           $path = $_SERVER['DOCUMENT_ROOT'].'/templates/'.$this->templateName.'/template.php';
-            if (file_exists($path)) {
-                include $path;
-            }else{
-                echo "404";
-            }
-
-             $content = ob_get_contents();
+        $content = ob_get_contents();
 
         ob_clean();
-
-        return $content;
-    }
-
-    public function setTemplate($tmp)
-    {
-       $this->templateName = $tmp;
-    }
-
-    public function setComponent($c_name)
-    {
-        $path = $_SERVER['DOCUMENT_ROOT'].'/templates/'.$this->templateName.'/'.$c_name.'/template.php';
-        return $path;
+        echo $content;
     }
 }
 
-
-
-
-
-class Template   
+class TopMenu extends Component
 {
-    
-   
-
-    public function setView($value)
+    public function getVariableTemplate()
     {
-        return $this;
+        return __CLASS__;
     }
 
-    public function setData($value='')
+    public function show()
     {
-        return $this;
-    }
-
-    public function show($tmp)
-    {
-        // $view = Views::getInstance();
-
-        // $view->title = 'test title post';
-        // $view->setTemplate($tmp);
-        // $view->setComponent('users');
-
-        // $view->var = $view->render('user');
-        // echo $view->render();
-    }
-}
-
-
-
-
-class FrontController  
-{
-    protected $template;
-
-
-    function __construct()
-    {   
-        $this->template = new Template();    
-    }
-}
-
-
-class PostController extends FrontController
-{
-    
-
-    public function actionIndex()
-    {
-        $data = [
-            'post'=>[
-                'title'=>'test post title'
+        parent::render('menu/menu.top',['arResult'=>[
+            [
+                'title'=>'home',
+                'url'=>'/'
+            ],
+            [
+                'title'=>'php',
+                'url'=>'/php'
             ]
-        ];
-       $this->template->setView('users')->setData('usersList',$data)->show('blog');
+        ]]);
+    }
+
+}
+
+class Catalog extends Component
+{
+    public function getVariableTemplate()
+    {
+        return __CLASS__;
+    }
+
+    public function show($k = '')
+    {
+        parent::render('menu/menu.top');
     }
 }
 
-// (new PostController())->actionIndex();
+class LeftMenu extends Component
+{
+    public function getVariableTemplate()
+    {
+        return __CLASS__;
+    }
+
+    public function show($k = '')
+    {
 
 
-        $view = Views::getInstance();
 
-        $view->title = 'test title post';
-        // $view->setComponent('users');
-         
-        $view->setComponent('posts');
-        $view->setTemplate('blog');
+    }
+}
 
-       
-        
+class TemplatePrototype
+{
+    protected $temlate_name;
 
-        echo $view->render();
+    public function __construct($temlate_name)
+    {
+        $this->temlate_name = $temlate_name;
+    }
+
+    public function render($show = false)
+    {
+
+        foreach ($this->arComponents as $key => $value) {
+            $$key = $value;
+        }
+
+        ob_start();
+        $path = $_SERVER['DOCUMENT_ROOT'].'/templates/'.$this->temlate_name.'/template.php';
+        if (file_exists($path)) {
+            include $path;
+        }else{
+            echo "404";
+        }
+
+        $content = ob_get_contents();
+
+        ob_clean();
+        if ($show) {
+            echo $content;
+        }else{
+            return $content;
+        }
+
+    }
+}
+
+class TemplateBlog extends TemplatePrototype
+{
+    /**
+     *  @param array $arComponents
+    */
+    protected $arComponents = [];
+    public function setComponent(Component $component)
+    {
+        $this->arComponents[$component->getVariableTemplate()] = $component;
+    }
+
+    public function show()
+    {
+        $this->setComponent((new LeftMenu()));
+        $this->setComponent((new TopMenu()));
+        $this->setView();
+        $this->render(true);
+    }
+
+    public function setView()
+    {
+        $this->arComponents['view'] = (new Catalog());
+    }
+
+}
+
+
+
+$temp = new TemplateBlog('blog');
+
+//$temp->
+$temp->show();
